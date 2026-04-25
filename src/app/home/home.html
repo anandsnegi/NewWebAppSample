@@ -1,0 +1,24 @@
+<!-- Hero -->
+<section class="py-5 text-center bg-primary text-white rounded-3 mb-4">
+  <div class="py-3">
+    <h1 class="display-5 fw-bold">Welcome to AngularNew</h1>
+    <p class="lead mb-4">A sample web application built with Angular and Bootstrap 5.</p>
+    <a routerLink="/items" class="btn btn-light btn-lg me-2">Browse Items</a>
+    <a routerLink="/contact" class="btn btn-outline-light btn-lg">Contact Us</a>
+  </div>
+</section>
+
+<!-- Feature Cards -->
+<section class="row g-4">
+  @for (feature of features; track feature.title) {
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body text-center p-4">
+          <div class="display-4 mb-3">{{ feature.icon }}</div>
+          <h5 class="card-title fw-semibold">{{ feature.title }}</h5>
+          <p class="card-text text-muted">{{ feature.description }}</p>
+        </div>
+      </div>
+    </div>
+  }
+</section>

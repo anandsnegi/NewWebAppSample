@@ -1,0 +1,99 @@
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6">
+    <h2 class="mb-4">Contact Us</h2>
+
+    @if (success) {
+      <div class="alert alert-success text-center">
+        <h5>🎉 Message sent!</h5>
+        <p class="mb-2">Thank you for reaching out. We'll get back to you shortly.</p>
+        <button class="btn btn-outline-success btn-sm" (click)="reset()">Send Another</button>
+      </div>
+    } @else {
+      <div class="card shadow-sm">
+        <div class="card-body p-4">
+          <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" novalidate>
+
+            <!-- Name -->
+            <div class="mb-3">
+              <label for="name" class="form-label fw-semibold">Name <span class="text-danger">*</span></label>
+              <input
+                id="name"
+                type="text"
+                class="form-control"
+                [class.is-invalid]="submitted && f['name'].errors"
+                formControlName="name"
+                placeholder="Your full name"
+              />
+              @if (submitted && f['name'].errors) {
+                <div class="invalid-feedback">
+                  @if (f['name'].errors!['required']) { Name is required. }
+                  @else if (f['name'].errors!['minlength']) { Name must be at least 2 characters. }
+                </div>
+              }
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+              <label for="email" class="form-label fw-semibold">Email <span class="text-danger">*</span></label>
+              <input
+                id="email"
+                type="email"
+                class="form-control"
+                [class.is-invalid]="submitted && f['email'].errors"
+                formControlName="email"
+                placeholder="you@example.com"
+              />
+              @if (submitted && f['email'].errors) {
+                <div class="invalid-feedback">
+                  @if (f['email'].errors!['required']) { Email is required. }
+                  @else if (f['email'].errors!['email']) { Please enter a valid email address. }
+                </div>
+              }
+            </div>
+
+            <!-- Subject -->
+            <div class="mb-3">
+              <label for="subject" class="form-label fw-semibold">Subject <span class="text-danger">*</span></label>
+              <select
+                id="subject"
+                class="form-select"
+                [class.is-invalid]="submitted && f['subject'].errors"
+                formControlName="subject"
+              >
+                <option value="">-- Select a subject --</option>
+                <option value="General Inquiry">General Inquiry</option>
+                <option value="Product Question">Product Question</option>
+                <option value="Order Support">Order Support</option>
+                <option value="Feedback">Feedback</option>
+              </select>
+              @if (submitted && f['subject'].errors?.['required']) {
+                <div class="invalid-feedback">Please select a subject.</div>
+              }
+            </div>
+
+            <!-- Message -->
+            <div class="mb-4">
+              <label for="message" class="form-label fw-semibold">Message <span class="text-danger">*</span></label>
+              <textarea
+                id="message"
+                rows="5"
+                class="form-control"
+                [class.is-invalid]="submitted && f['message'].errors"
+                formControlName="message"
+                placeholder="How can we help you?"
+              ></textarea>
+              @if (submitted && f['message'].errors) {
+                <div class="invalid-feedback">
+                  @if (f['message'].errors!['required']) { Message is required. }
+                  @else if (f['message'].errors!['minlength']) { Message must be at least 10 characters. }
+                </div>
+              }
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Send Message</button>
+          </form>
+        </div>
+      </div>
+    }
+  </div>
+</div>

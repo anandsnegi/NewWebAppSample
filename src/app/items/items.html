@@ -1,0 +1,55 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2 class="mb-0">Product Catalog</h2>
+  <span class="badge bg-secondary">{{ filteredItems.length }} items</span>
+</div>
+
+<!-- Filters -->
+<div class="row g-3 mb-4">
+  <div class="col-md-6">
+    <input
+      type="search"
+      class="form-control"
+      placeholder="Search items..."
+      [value]="searchTerm"
+      (input)="onSearch($any($event.target).value)"
+    />
+  </div>
+  <div class="col-md-3">
+    <select class="form-select" (change)="onCategoryChange($any($event.target).value)">
+      <option value="">All Categories</option>
+      @for (cat of categories; track cat) {
+        <option [value]="cat">{{ cat }}</option>
+      }
+    </select>
+  </div>
+</div>
+
+<!-- Item Grid -->
+<div class="row g-4">
+  @for (item of filteredItems; track item.id) {
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex justify-content-between mb-2">
+            <span class="badge bg-info text-dark">{{ item.category }}</span>
+            @if (item.inStock) {
+              <span class="badge bg-success">In Stock</span>
+            } @else {
+              <span class="badge bg-danger">Out of Stock</span>
+            }
+          </div>
+          <h5 class="card-title">{{ item.name }}</h5>
+          <p class="card-text text-muted small">{{ item.description }}</p>
+          <p class="fw-bold text-primary fs-5">\${{ item.price | number:'1.2-2' }}</p>
+        </div>
+        <div class="card-footer bg-transparent">
+          <a [routerLink]="['/items', item.id]" class="btn btn-outline-primary btn-sm w-100">View Details</a>
+        </div>
+      </div>
+    </div>
+  } @empty {
+    <div class="col-12 text-center py-5 text-muted">
+      <p class="fs-5">No items match your search.</p>
+    </div>
+  }
+</div>
